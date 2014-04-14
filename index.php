@@ -157,7 +157,7 @@
 					'have?',
 					'',
 					'',
-					'to "Browser-Download-Simulator'.date('Y').'" yet?'
+					'to "Browser-Download-Simulator '.date('Y').'" yet?'
 				),
 				'wp' => array(
 					'',
