@@ -12,7 +12,9 @@
 			}
 
 			body {
-				margin: 10%;
+				margin: 0;
+				padding: 10%;
+				box-sizing: border-box;
 				background: rgb(255,151,45); /* Old browsers */
 				background: -moz-linear-gradient(45deg,  rgba(255,151,45,1) 0%, rgba(255,66,6,1) 100%); /* FF3.6+ */
 				background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(255,151,45,1)), color-stop(100%,rgba(255,66,6,1))); /* Chrome,Safari4+ */
