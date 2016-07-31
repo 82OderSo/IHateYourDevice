@@ -203,7 +203,7 @@
 			}
 			
 			echo '
-			<div onclick="window.open(\'https://twitter.com/intent/tweet?hashtags=IHateYouDevice&amp;original_referer=http%3A%2F%2FIHateYourDevice.oderso.org%2F&amp;text='.urlencode($pre.' '.$device.' '.$post).'%20%E2%80%93&amp;tw_p=tweetbutton&amp;url=http%3A%2F%2FIHateYourDevice.oderso.org%2F\')">
+			<div onclick="window.open(\'https://twitter.com/intent/tweet?hashtags=IHateYourDevice&amp;original_referer=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'%2F&amp;text='.urlencode($pre.' '.$device.' '.$post).'%20%E2%80%93&amp;tw_p=tweetbutton&amp;url=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'%2F\')">
 			<div id="pre">'.$pre.'</div>
 			<div id="device">'.$device.'</div>
 			<div id="post">'.$post.'</div>
