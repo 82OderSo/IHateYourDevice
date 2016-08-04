@@ -60,38 +60,38 @@
 			function get_quote($device, $arrangement, $rand) {
 				global $hate_pre;
 				global $hate_post;
-				
+
 				if($arrangement == 'pre') {
 					return($hate_pre[$device][$rand]);
 				} else {
 					return($hate_post[$device][$rand]);
 				}
-				
+
 			}
-			
+
 			$agent = $_SERVER['HTTP_USER_AGENT'];
-				
+
 			$array = array(
-			
+
 				'Your device sucks!', 'iPod', 'iPad', 'iPhone', 'Macintosh', 'Windows Phone', 'MSIE', 'Android', 'Windows'
-				
+
 			);
-			
+
 			$string = '';
-			
+
 			foreach ($array as $device) {
-			
+
 				$match = preg_match("/$device/", $agent);
 				$string = $string.$match;
-			
+
 			}
-			
+
 			$result = str_split($string);
-			
+
 			$key = array_search('1', $result);
-			
+
 			$device = $array[$key];
-			
+
 			$hate_pre = array(
 				'ios' => array(
 					'You are using an overpriced',
@@ -128,7 +128,7 @@
 					'Dont\'t cut off your fingers on the edges on your'
 				)
 			);
-			
+
 			$hate_post = array(
 				'ios' => array(
 					'',
@@ -165,7 +165,7 @@
 					''
 				)
 			);
-			
+
 			switch($device) {
 				case 'iPod':
 				case 'iPad':
@@ -190,24 +190,29 @@
 					break;
 			}
 
-			if($device != "Your device sucks!") {
+			if($device != 'Your device sucks!') {
 				$count = rand(0, (count($hate_pre[$os]) - 1));
-				$pre = get_quote($os, 'pre', $count);
+				$pre = get_quote($os, 'pre', $count) . ' ';
 				$post = get_quote($os, 'post', $count);
 			} else {
-				$pre = "";
-				$post = "";
+				$pre = '';
+				$post = '';
 			}
 
+			$url = "http";
+			if(isset($_SERVER['HTTPS'])) {
+				$url .= "s";
+			}
+			$url .= "://" . $_SERVER['HTTP_HOST'] . str_replace(basename(__FILE__), "", $_SERVER['REQUEST_URI']);
+
 			echo '
-			<div onclick="window.open(\'https://twitter.com/intent/tweet?hashtags=IHateYourDevice&amp;original_referer=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'%2F&amp;text='.urlencode($pre.' '.$device.' '.$post).'%20%E2%80%93&amp;tw_p=tweetbutton&amp;url=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'%2F\')">
+			<div onclick="window.open(\'https://twitter.com/intent/tweet?hashtags=IHateYourDevice&amp;original_referer=http%3A%2F%2F' . $_SERVER['HTTP_HOST'] . '%2F&amp;text=' . urlencode($pre . $device . ' ' . $post) . ($post == '' ? '' : ' ') . '%E2%80%93&amp;tw_p=tweetbutton&amp;url='. $url . '\')">
 			<div id="pre">'.$pre.'</div>
 			<div id="device">'.$device.'</div>
 			<div id="post">'.$post.'</div>
 			</div>
 			';
 			echo '<div id="github"><a href="https://github.com/82OderSo/IHateYourDevice" target="_blank">Fork on GitHub</a></div>';
-			
 		?>
 	</body>
 </html>
