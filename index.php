@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-		<link href="http://fonts.googleapis.com/css?family=Lato%3A300%7COxygen%3A700" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Lato%3A300%7COxygen%3A700" rel="stylesheet" type="text/css">
 		<title>I hate your device</title>
 		<style type="text/css">
 			html, body {
