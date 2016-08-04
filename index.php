@@ -170,38 +170,32 @@
 				case 'iPod':
 				case 'iPad':
 				case 'iPhone':
-					$count = rand(0, (count($hate_pre['ios']) - 1));
-					$pre = get_quote('ios', 'pre', $count);
-					$post = get_quote('ios', 'post', $count);
+					$os = 'ios';
 					break;
 				case 'Android':
-					$count = rand(0, (count($hate_pre['android']) - 1));
-					$pre = get_quote('android', 'pre', $count);
-					$post = get_quote('android', 'post', $count);
+					$os = 'android';
 					break;
 				case 'MSIE':
-					$count = rand(0, (count($hate_pre['ie']) - 1));
-					$pre = get_quote('ie', 'pre', $count);
-					$post = get_quote('ie', 'post', $count);
+					$os = 'ie';
 					$device = 'IE';
 					break;
 				case 'Windows':
-					$count = rand(0, (count($hate_pre['windows']) - 1));
-					$pre = get_quote('windows', 'pre', $count);
-					$post = get_quote('windows', 'post', $count);
+					$os = 'windows';
 					break;
 				case 'Windows Phone':
-					$count = rand(0, (count($hate_pre['wp']) - 1));
-					$pre = get_quote('wp', 'pre', $count);
-					$post = get_quote('wp', 'post', $count);
+					$os = 'wp';
 					break;
 				case 'Macintosh':
-					$count = rand(0, (count($hate_pre['mac']) - 1));
-					$pre = get_quote('mac', 'pre', $count);
-					$post = get_quote('mac', 'post', $count);
+					$os = 'mac';
 					break;
 			}
-			
+
+			if($device != "Your device sucks!") {
+				$count = rand(0, (count($hate_pre[$os]) - 1));
+				$pre = get_quote($os, 'pre', $count);
+				$post = get_quote($os, 'post', $count);
+			}
+
 			echo '
 			<div onclick="window.open(\'https://twitter.com/intent/tweet?hashtags=IHateYourDevice&amp;original_referer=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'%2F&amp;text='.urlencode($pre.' '.$device.' '.$post).'%20%E2%80%93&amp;tw_p=tweetbutton&amp;url=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'%2F\')">
 			<div id="pre">'.$pre.'</div>
