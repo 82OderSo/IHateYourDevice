@@ -194,6 +194,9 @@
 				$count = rand(0, (count($hate_pre[$os]) - 1));
 				$pre = get_quote($os, 'pre', $count);
 				$post = get_quote($os, 'post', $count);
+			} else {
+				$pre = "";
+				$post = "";
 			}
 
 			echo '
