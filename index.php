@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-		<link href="http://fonts.googleapis.com/css?family=Lato%3A300%7COxygen%3A700" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Lato%3A300%7COxygen%3A700" rel="stylesheet" type="text/css">
 		<title>I hate your device</title>
 		<style type="text/css">
 			html, body {
@@ -60,38 +60,38 @@
 			function get_quote($device, $arrangement, $rand) {
 				global $hate_pre;
 				global $hate_post;
-				
+
 				if($arrangement == 'pre') {
 					return($hate_pre[$device][$rand]);
 				} else {
 					return($hate_post[$device][$rand]);
 				}
-				
+
 			}
-			
+
 			$agent = $_SERVER['HTTP_USER_AGENT'];
-				
+
 			$array = array(
-			
+
 				'Your device sucks!', 'iPod', 'iPad', 'iPhone', 'Macintosh', 'Windows Phone', 'MSIE', 'Android', 'Windows'
-				
+
 			);
-			
+
 			$string = '';
-			
+
 			foreach ($array as $device) {
-			
+
 				$match = preg_match("/$device/", $agent);
 				$string = $string.$match;
-			
+
 			}
-			
+
 			$result = str_split($string);
-			
+
 			$key = array_search('1', $result);
-			
+
 			$device = $array[$key];
-			
+
 			$hate_pre = array(
 				'ios' => array(
 					'You are using an overpriced',
@@ -128,7 +128,7 @@
 					'Dont\'t cut off your fingers on the edges on your'
 				)
 			);
-			
+
 			$hate_post = array(
 				'ios' => array(
 					'',
@@ -165,52 +165,54 @@
 					''
 				)
 			);
-			
+
 			switch($device) {
 				case 'iPod':
 				case 'iPad':
 				case 'iPhone':
-					$count = rand(0, (count($hate_pre['ios']) - 1));
-					$pre = get_quote('ios', 'pre', $count);
-					$post = get_quote('ios', 'post', $count);
+					$os = 'ios';
 					break;
 				case 'Android':
-					$count = rand(0, (count($hate_pre['android']) - 1));
-					$pre = get_quote('android', 'pre', $count);
-					$post = get_quote('android', 'post', $count);
+					$os = 'android';
 					break;
 				case 'MSIE':
-					$count = rand(0, (count($hate_pre['ie']) - 1));
-					$pre = get_quote('ie', 'pre', $count);
-					$post = get_quote('ie', 'post', $count);
+					$os = 'ie';
 					$device = 'IE';
 					break;
 				case 'Windows':
-					$count = rand(0, (count($hate_pre['windows']) - 1));
-					$pre = get_quote('windows', 'pre', $count);
-					$post = get_quote('windows', 'post', $count);
+					$os = 'windows';
 					break;
 				case 'Windows Phone':
-					$count = rand(0, (count($hate_pre['wp']) - 1));
-					$pre = get_quote('wp', 'pre', $count);
-					$post = get_quote('wp', 'post', $count);
+					$os = 'wp';
 					break;
 				case 'Macintosh':
-					$count = rand(0, (count($hate_pre['mac']) - 1));
-					$pre = get_quote('mac', 'pre', $count);
-					$post = get_quote('mac', 'post', $count);
+					$os = 'mac';
 					break;
 			}
-			
+
+			if($device != 'Your device sucks!') {
+				$count = rand(0, (count($hate_pre[$os]) - 1));
+				$pre = get_quote($os, 'pre', $count) . ' ';
+				$post = get_quote($os, 'post', $count);
+			} else {
+				$pre = '';
+				$post = '';
+			}
+
+			$url = "http";
+			if(isset($_SERVER['HTTPS'])) {
+				$url .= "s";
+			}
+			$url .= "://" . $_SERVER['HTTP_HOST'] . str_replace(basename(__FILE__), "", $_SERVER['REQUEST_URI']);
+
 			echo '
-			<div onclick="window.open(\'https://twitter.com/intent/tweet?hashtags=IHateYourDevice&amp;original_referer=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'%2F&amp;text='.urlencode($pre.' '.$device.' '.$post).'%20%E2%80%93&amp;tw_p=tweetbutton&amp;url=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'%2F\')">
+			<div onclick="window.open(\'https://twitter.com/intent/tweet?hashtags=IHateYourDevice&amp;original_referer=http%3A%2F%2F' . $_SERVER['HTTP_HOST'] . '%2F&amp;text=' . urlencode($pre . $device . ' ' . $post) . ($post == '' ? '' : ' ') . '%E2%80%93&amp;tw_p=tweetbutton&amp;url='. $url . '\')">
 			<div id="pre">'.$pre.'</div>
 			<div id="device">'.$device.'</div>
 			<div id="post">'.$post.'</div>
 			</div>
 			';
 			echo '<div id="github"><a href="https://github.com/82OderSo/IHateYourDevice" target="_blank">Fork on GitHub</a></div>';
-			
 		?>
 	</body>
 </html>
