@@ -7,7 +7,7 @@ Realized through <code>$_SERVER['HTTP_USER_AGENT']</code> and a complicated cons
 
 All in all it was just a little project as a pastime.
 
-A live demo is available at http://www.ihateyourdevice.website/
+A live demo is available at http://ihateyourdevice.herrlevin.de/
 
 Have fun!
 
